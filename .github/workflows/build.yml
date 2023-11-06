@@ -1,0 +1,55 @@
+name: Run CIFAR Pipeline
+
+on:
+  workflow_dispatch:
+  # push:
+  # branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Public ECR
+        uses: docker/login-action@v3
+        with:
+          registry: public.ecr.aws
+          username: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        env:
+          AWS_REGION: us-west-2
+
+      - name: Set current datetime as tag
+        id: set-tag
+        run: echo "::set-output name=tag::$(date -u +%Y%m%d%H%M%S)"
+
+      - name: Build and push Docker images
+        id: build-and-push
+        uses: docker/build-push-action@v5.0.0
+        with:
+          context: ./docker_image
+          push: true
+          tags: public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:${{ steps.set-tag.outputs.tag }}
+
+      - name: Update YAML files
+        run: |
+          yq e '.implementation.container.image = "public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:${{ steps.set-tag.outputs.tag }}"' yaml/minio_component.yaml -i &&
+          yq e '.implementation.container.image = "public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:${{ steps.set-tag.outputs.tag }}"' yaml/preprocess_component.yaml -i &&
+          yq e '.implementation.container.image = "public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:${{ steps.set-tag.outputs.tag }}"' yaml/train_component.yaml -i
+        working-directory: ${{ github.workspace }}
+      # - name: Setup Python
+      #   uses: actions/setup-python@v4
+      #   with:
+      #     python-version: "3.9"
+
+      # - name: Install dependencies
+      #   run: pip3 install -r requirements.txt
+
+      # - name: Run CIFAR10 Pipeline in Kubeflow
+      #   env:
+      #     KUBEFLOW_ENDPOINT: ${{ secrets.KUBEFLOW_ENDPOINT }}
+      #     KUBEFLOW_USERNAME: ${{ secrets.KUBEFLOW_USERNAME }}
+      #     KUBEFLOW_PASSWORD: ${{ secrets.KUBEFLOW_PASSWORD }}
+      #   run: cd pipeline/cifar && python3 cifar10.py
