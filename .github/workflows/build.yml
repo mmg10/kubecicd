@@ -23,7 +23,7 @@ jobs:
 
       - name: Set current datetime as tag
         id: set-tag
-        run: echo "TAG=public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:20231106133057" >> "$GITHUB_ENV"
+        run: echo "TAG=public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
         # run: echo "TAG=20231106133057" >> "$GITHUB_ENV"
         # run: echo "TAG=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
         # run: echo "::set-output name=tag::$(date -u +%Y%m%d%H%M%S)"
