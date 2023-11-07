@@ -1,4 +1,4 @@
-FROM python:3.10.13-slim-bullseye
+FROM 2.1.0-cuda12.1-cudnn8-runtime
 
 RUN export DEBIAN_FRONTEND=noninteractive \
   && apt-get update \
@@ -15,11 +15,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   && rm -rf /var/lib/apt/lists/*
 
 RUN pip install -U pip
-
-RUN pip install \
-  torch==2.1.0 \
-  torchvision==0.16.0 \
-  && rm -rf /root/.cache/pip
 
 COPY requirements.txt .
 

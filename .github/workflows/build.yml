@@ -34,7 +34,7 @@ jobs:
         with:
           context: ./docker_image
           push: true
-          tags: ${TAG}
+          tags: $TAG
 
       - name: Update YAML files
         run: |
