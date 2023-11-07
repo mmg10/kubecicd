@@ -32,11 +32,11 @@ ENV PYTHONPATH /workspace
 
 WORKDIR /workspace
 
-RUN sed -i 's/pl.Trainer.from_argparse_args(parser)/pl.Trainer(**trainer_args)/' /usr/local/lib/python3.10/site-packages/pytorch_kfp_components/components/trainer/executor.py
+RUN sed -i 's/pl.Trainer.from_argparse_args(parser)/pl.Trainer(**trainer_args)/' /usr/local/lib/python3.10/dist-packages/pytorch_kfp_components/components/trainer/executor.py
 
-RUN sed -i 's/trainer.test(model)/trainer.test(model, data_module)/' /usr/local/lib/python3.10/site-packages/pytorch_kfp_components/components/trainer/executor.py
+RUN sed -i 's/trainer.test(model)/trainer.test(model, data_module)/' /usr/local/lib/python3.10/dist-packages/pytorch_kfp_components/components/trainer/executor.py
 
-RUN sed -i 's/minio-service.kubeflow:9000/s3.amazonaws.com/' /usr/local/lib/python3.10/site-packages/pytorch_kfp_components/components/visualization/executor.py
+RUN sed -i 's/minio-service.kubeflow:9000/s3.amazonaws.com/' /usr/local/lib/python3.10/dist-packages/pytorch_kfp_components/components/visualization/executor.py
 
 COPY . .
 
