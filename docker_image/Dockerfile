@@ -11,6 +11,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   vim \
   wget \
   zip \
+  python3 \
+  python3-pip \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
