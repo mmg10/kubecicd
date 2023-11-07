@@ -28,13 +28,13 @@ jobs:
         # run: echo "TAG=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
         # run: echo "::set-output name=tag::$(date -u +%Y%m%d%H%M%S)"
 
-      # - name: Build and push Docker images
-      #   id: build-and-push
-      #   uses: docker/build-push-action@v5.0.0
-      #   with:
-      #     context: ./docker_image
-      #     push: true
-      #     tags: public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:${TAG}
+      - name: Build and push Docker images
+        id: build-and-push
+        uses: docker/build-push-action@v5.0.0
+        with:
+          context: ./docker_image
+          push: true
+          tags: ${TAG}
 
       - name: Update YAML files
         run: |

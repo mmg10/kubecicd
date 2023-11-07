@@ -16,19 +16,20 @@ description: |
   Prepare data for PyTorch training.
 
 outputs:
-  - {name: output_data, description: 'The path to the input datasets'}
-  - {name: MLPipeline UI Metadata, description: 'Path to generate MLPipeline UI Metadata'}
- 
+  - { name: output_data, description: "The path to the input datasets" }
+  - {
+      name: MLPipeline UI Metadata,
+      description: "Path to generate MLPipeline UI Metadata",
+    }
+
 implementation:
   container:
     # For GPU use
     # image: public.ecr.aws/pytorch-samples/kfp_samples:latest-gpu
     image: public.ecr.aws/pytorch-samples/kfp_samples:latest
-    command: ["command to execute"] #Ex: ['python3', 'bert/bert_pre_process.py']
+    command: ["python3", "code/cifar10_pre_process.py"] #Ex: ['python3', 'bert/bert_pre_process.py']
     args:
-    - --output_path
-    - {outputPath: output_data}
-    - --mlpipeline_ui_metadata
-    - { outputPath: MLPipeline UI Metadata }
- 
-   
+      - --output_path
+      - { outputPath: output_data }
+      - --mlpipeline_ui_metadata
+      - { outputPath: MLPipeline UI Metadata }
