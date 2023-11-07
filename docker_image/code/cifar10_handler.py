@@ -47,6 +47,7 @@ class CIFAR10Classification(ImageClassifier, ABC):
             if torch.cuda.is_available()
             else "cpu"
         )
+        logger.info(f"Torch Version: {torch.__version__}")
         logger.info(f"Using Device: {self.device}")
 
         self.model = CIFAR10CLASSIFIER()

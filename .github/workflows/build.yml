@@ -39,13 +39,13 @@ jobs:
         with:
           context: ./docker_image
           push: true
-          tags: "public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:20231108"
+          tags: "public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:20231109"
 
       - name: Update YAML files
         run: |
-          yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:20231108' -i yaml/minio_component.yaml &&
-          yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:20231108' -i yaml/preprocess_component.yaml &&
-          yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:20231108' -i yaml/train_component.yaml
+          yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:20231109' -i yaml/minio_component.yaml &&
+          yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:20231109' -i yaml/preprocess_component.yaml &&
+          yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:20231109' -i yaml/train_component.yaml
         working-directory: ${{ github.workspace }}
 
       - name: Commit changes and push

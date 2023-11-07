@@ -26,7 +26,7 @@ outputs:
 implementation:
   container:
     image: public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:serve
-    command: ['python']
+    command: ['python3']
     args: [
       -u, kservedeployer.py,
       --action,                 {inputValue: Action},
