@@ -43,14 +43,14 @@ jobs:
           tags: "public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:${{ env.TAG }}"
 
       - name: Update YAML files
-        run: |
-          yq e '.implementation.container.image = env(IMG)' -i yaml/minio_component.yaml &&
-          yq e '.implementation.container.image = env(IMG)' -i yaml/preprocess_component.yaml &&
-          yq e '.implementation.container.image = env(IMG)' -i yaml/train_component.yaml
         # run: |
-        #   yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:env(TAG)' -i yaml/minio_component.yaml &&
-        #   yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:env(TAG)' -i yaml/preprocess_component.yaml &&
-        #   yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:env(TAG)' -i yaml/train_component.yaml
+        #   yq e '.implementation.container.image = env(IMG)' -i yaml/minio_component.yaml &&
+        #   yq e '.implementation.container.image = env(IMG)' -i yaml/preprocess_component.yaml &&
+        #   yq e '.implementation.container.image = env(IMG)' -i yaml/train_component.yaml
+        run: |
+          yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:env(TAG)' -i yaml/minio_component.yaml &&
+          yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:env(TAG)' -i yaml/preprocess_component.yaml &&
+          yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:env(TAG)' -i yaml/train_component.yaml
         working-directory: ${{ github.workspace }}
 
       - name: Commit changes and push
