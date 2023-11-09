@@ -23,15 +23,11 @@ jobs:
 
       - name: Set current datetime as tag
         id: set-tag
-        run: |
-          echo "TAG=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
-          # echo "TAG=20231111" >> "$GITHUB_ENV"
-          # echo ${TAG}
-          echo "IMG=public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:${{ env.TAG }}" >> "$GITHUB_ENV"
-          echo ${IMG}
-        # run: echo "TAG=20231112" >> "$GITHUB_ENV"
-        # run: echo "TAG=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
-        # run: echo "::set-output name=tag::$(date -u +%Y%m%d%H%M%S)"
+        run: echo "TAG=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
+
+      - name: Set image repo
+        id: set-tag
+        run: echo "IMG=public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:${{ env.TAG }}" >> "$GITHUB_ENV"
 
       - name: Build and push Docker images
         id: build-and-push
