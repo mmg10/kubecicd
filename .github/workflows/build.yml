@@ -23,13 +23,13 @@ jobs:
 
       - name: Set current datetime as tag
         id: set-tag
-        run: |
-          # echo "TAG=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
-          echo "TAG=20231111" >> "$GITHUB_ENV"
-          echo ${TAG}
-          echo "IMG=public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:${{ env.TAG }}" >> "$GITHUB_ENV"
-          echo ${IMG}
-        # run: echo "TAG=20231106133057" >> "$GITHUB_ENV"
+        # run: |
+        #   # echo "TAG=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
+        #   echo "TAG=20231111" >> "$GITHUB_ENV"
+        #   echo ${TAG}
+        #   echo "IMG=public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:${{ env.TAG }}" >> "$GITHUB_ENV"
+        #   echo ${IMG}
+        run: echo "TAG=20231111" >> "$GITHUB_ENV"
         # run: echo "TAG=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
         # run: echo "::set-output name=tag::$(date -u +%Y%m%d%H%M%S)"
 
@@ -39,8 +39,8 @@ jobs:
         with:
           context: ./docker_image
           push: true
-          tags: ${{ env.IMG }}
-          # tags: "public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:20231109"
+          # tags: ${{ env.IMG }}
+          tags: "public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:${{ env.TAG }}"
 
       - name: Update YAML files
         run: |
@@ -48,9 +48,9 @@ jobs:
           yq e '.implementation.container.image = env(IMG)' -i yaml/preprocess_component.yaml &&
           yq e '.implementation.container.image = env(IMG)' -i yaml/train_component.yaml
         # run: |
-        #   yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:20231109' -i yaml/minio_component.yaml &&
-        #   yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:20231109' -i yaml/preprocess_component.yaml &&
-        #   yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:20231109' -i yaml/train_component.yaml
+        #   yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:env(TAG)' -i yaml/minio_component.yaml &&
+        #   yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:env(TAG)' -i yaml/preprocess_component.yaml &&
+        #   yq e '.implementation.container.image = public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:env(TAG)' -i yaml/train_component.yaml
         working-directory: ${{ github.workspace }}
 
       - name: Commit changes and push
