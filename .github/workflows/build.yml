@@ -26,7 +26,7 @@ jobs:
         run: echo "TAG=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
 
       - name: Set image repo
-        id: set-tag
+        id: set-img
         run: echo "IMG=public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:${{ env.TAG }}" >> "$GITHUB_ENV"
 
       - name: Build and push Docker images
