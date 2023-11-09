@@ -27,7 +27,7 @@ jobs:
           # echo "TAG=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
           echo "TAG=20231111" >> "$GITHUB_ENV"
           echo ${TAG}
-          echo "IMG=public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:${TAG}" >> "$GITHUB_ENV"
+          echo "IMG=public.ecr.aws/f2t6q8t2/kubeflow_aws_p310-pt21_cpu:${{ env.TAG }}" >> "$GITHUB_ENV"
           echo ${IMG}
         # run: echo "TAG=20231106133057" >> "$GITHUB_ENV"
         # run: echo "TAG=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
