@@ -48,9 +48,9 @@ jobs:
         #   yq e '.implementation.container.image = env(IMG)' -i yaml/preprocess_component.yaml &&
         #   yq e '.implementation.container.image = env(IMG)' -i yaml/train_component.yaml
         run: |
-          yq e '.implementation.container.image = ${{ secrets.ECR_REPO }}:${{ env.TAG }}' -i yaml/minio_component.yaml
-          yq e '.implementation.container.image = ${{ secrets.ECR_REPO }}:${{ env.TAG }}' -i yaml/preprocess_component.yaml
-          yq e '.implementation.container.image = ${{ secrets.ECR_REPO }}:${{ env.TAG }}' -i yaml/train_component.yaml
+          yq e '.implementation.container.image = "${{ secrets.ECR_REPO }}:${{ env.TAG }}"' -i yaml/minio_component.yaml
+          yq e '.implementation.container.image = "${{ secrets.ECR_REPO }}:${{ env.TAG }}"' -i yaml/preprocess_component.yaml
+          yq e '.implementation.container.image = "${{ secrets.ECR_REPO }}:${{ env.TAG }}"' -i yaml/train_component.yaml
         working-directory: ${{ github.workspace }}
 
       - name: Commit changes and push
