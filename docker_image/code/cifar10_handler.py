@@ -1,8 +1,5 @@
 # !/usr/bin/env/python3
 """ Cifar10 Custom Handler."""
-import subprocess
-
-subprocess.Popen("rm -rf torch*", shell=True)
 
 import base64
 import io
