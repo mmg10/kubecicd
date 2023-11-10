@@ -18,11 +18,10 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 RUN pip install -U pip
 
-RUN pip install \
+RUN pip install --no-cache-dir \
   torch==2.1.0 \
   torchvision==0.16.0 \
-  --extra-index-url https://download.pytorch.org/whl/cu118 \
-  && rm -rf /root/.cache/pip
+  --extra-index-url https://download.pytorch.org/whl/cu118
 
 COPY requirements.txt .
 
